@@ -8,3 +8,63 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r library, include=FALSE}
+library(tidyverse)
+```
+
+# Initialize 
+
+We want to initialize our league rules so our model can be league-specific. We'll start with Yahoo's default league settings. First up: rosters.  
+```{r roster_rules}
+number_teams <- 10
+roster_size <- 15
+
+# Number of players by position in starting lineup
+QBs <- 1
+WRs <- 2
+RBs <- 2
+TEs <- 1
+FLEX <- 1
+K <- 1
+DST <- 1
+```
+
+Next, we'll focus on the most important part of fantasy- the scoring system. We'll start with kicking statistics. 
+```{r kickers_scoring_system}
+# FG19 indicates field goal from 0-19 yards out, FG29 from 20-29 yards, etc. 
+FG19 <- 3
+FG29 <- 3
+FG39 <- 3
+FG49 <- 4
+FG50 <- 5
+PAT <- 1
+
+```
+
+Then move to offensive points. 
+```{r off_scoring}
+# ppr = points per reception
+ppr <- 0.5
+pass_yards <- 0.04
+pass_td <- 4
+int <- -1
+rush_yards <- 0.1
+rush_td <- 6
+# rpt_yards = reception yards
+rpt_yards <- 0.1
+rpt_td <- 6
+return_td <- 6
+# off_fmb_td = offensive fumble return TD. Doesn't happen too often, but just in case. 
+off_fmb_td <- 6
+# two_pt = two-point conversion
+two_pt <- 2
+fumble <- -2
+```
+
+And now, defensive.
+```{r def_scoring}
+
+```
+
+
+# Data Import
