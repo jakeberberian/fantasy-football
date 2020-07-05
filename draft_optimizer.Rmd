@@ -72,15 +72,12 @@ And now, defensive.
 We need some data to analyze, so we'll pull 
 
 ```{r}
-# Data until 2017
-passing17 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_player_stats/season_passing_df.csv")
 
-receiving17 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_player_stats/season_receiving_df.csv")
-
-rushing17 <- read_csv("https://raw.githubusercontent.com/ryurko/nflscrapR-data/master/legacy_data/season_player_stats/season_rushing_df.csv")
 ```
 
 Rushing data includes all QBs.
+
+
 
 
 
