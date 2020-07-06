@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r library, include=FALSE}
 library(tidyverse)
 library(rvest)
+library(glue)
 ```
 
 # Initialize 
@@ -71,63 +72,44 @@ And now, defensive.
 # Data Import
 We need some data to analyze, so we'll scrape data from [PFR](www.pro-football-reference.com).
 ```{r}
-passing <- data.frame()
-rushing <- data.frame()
-receiving <- data.frame()
-fantasyAll <- data.frame()
+pass <- data.frame()
+rush <- data.frame()
+receive <- data.frame()
+fantasy <- data.frame()
 
+get_stats <- function(year, year2) {
+  
+  read_html("https://www.pro-football-reference.com/years/2006/passing.htm")
+  
+  years <- c(year:year2)
+  
+  for (year in seq_along(years)) {
+    
+    passurl <- glue("https://www.pro-football-reference.com/years/", year, "/passing.htm")
+    rushurl <- glue("https://www.pro-football-reference.com/years/", year, "/rushing.htm")
+    receiveurl <- glue("https://www.pro-football-reference.com/years/", year, "/receiving.htm")
+    fantasyurl <- glue("https://www.pro-football-reference.com/years/", year, "/receiving.htm")
+      
+      pass <- read_html(passurl) %>% 
+        html_nodes("table") %>% 
+        html_table()
+  
+      rush <- read_html(rushurl) %>% 
+        html_nodes("table") %>% 
+        html_table()
+      
+      receive <- read_html(receiveurl) %>% 
+        html_nodes("table") %>% 
+        html_table()
+      
+      fantasy <- read_html(fantasyurl) %>% 
+        html_nodes("table") %>% 
+        html_table()
+  }
+  
+  }
+  
 
-read_html("https://www.pro-football-reference.com/years/2006/passing.htm")
-
-i = 2006
-for (i in 2006:2019) {
-   passingurl <- paste0("https://www.pro-football-reference.com/years/", i, "/passing.htm")
-   rushingurl <- paste0("https://www.pro-football-reference.com/years/", i, "/rushing.htm")
-   receivingurl <- paste0("https://www.pro-football-reference.com/years/", i, "/receiving.htm")
-   fantasyurl <- paste0("https://www.pro-football-reference.com/years/", i, "/fantasy.htm")
-
-   passingYear <- read_html(passingurl) %>%
-     html_nodes("table") %>%
-     html_table()
-
-   rushingYear <- read_html(rushingurl) %>%
-     html_nodes("table") %>%
-     html_table()
-
-   receivingYear <- read_html(receivingurl) %>%
-     html_nodes("table") %>%
-     html_table()
-
-   fantasyYear <- read_html(fantasyurl) %>%
-     html_nodes("table") %>%
-     html_table()
-
-   passingYear <- passingYear[[1]]
-   passingYear$year <- i
-
-   rushingYear <- rushingYear[[1]]
-   rushingYear$year <- i
-
-   receivingYear <- receivingYear[[1]]
-   receivingYear$year <- i
-
-   fantasyYear <- fantasyYear[[1]]
-   fantasyYear$year <- i
-
-   passing <- rbind(passing, passingYear)
-   rushing <- rbind(rushing, rushingYear)
-   receiving <- rbind(receiving, receivingYear)
-   fantasyAll <- rbind(fantasyAll, fantasyYear)
- }
-
- 
- 
-setwd("/Users/jakeberberian/fantasy-football/data")
-
-write.csv(passing, file = "passing.csv")
-write.csv(rushing, file = "rushing.csv")
-write.csv(receiving, file = "receiving.csv")
-write.csv(fantasyAll, file = "fantasyAll.csv")
 ```
 
 Rushing data includes all QBs.
