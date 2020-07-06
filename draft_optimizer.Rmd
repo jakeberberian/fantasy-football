@@ -70,7 +70,7 @@ And now, defensive.
 
 
 # Data Import
-We need some data to analyze, so we'll scrape data from [PFR](www.pro-football-reference.com).
+We need some data to analyze, so we scraped data from [PFR](www.pro-football-reference.com). This can be found and run in the data_scrape.R script. 
 
 ```{r data_import, message=FALSE}
 
