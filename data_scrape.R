@@ -51,7 +51,7 @@ rm(fantasyYear, passingYear, receivingYear, rushingYear)
 
 setwd("/Users/jakeberberian/fantasy-football/data")
 
-write_csv2(passing, "/Users/jakeberberian/fantasy-football/data/pass.csv")
-write_csv2(rushing, "/Users/jakeberberian/fantasy-football/data/rush.csv")
-write_csv2(receiving, "/Users/jakeberberian/fantasy-football/data/receive.csv")
-write_csv2(fantasyAll, "/Users/jakeberberian/fantasy-football/data/fantasy.csv")
+write_csv(passing, "/Users/jakeberberian/fantasy-football/data/pass.csv")
+write_csv(rushing, "/Users/jakeberberian/fantasy-football/data/rush.csv")
+write_csv(receiving, "/Users/jakeberberian/fantasy-football/data/receive.csv")
+write_csv(fantasyAll, "/Users/jakeberberian/fantasy-football/data/fantasy.csv")

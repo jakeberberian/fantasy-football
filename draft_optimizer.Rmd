@@ -73,9 +73,47 @@ And now, defensive.
 We need some data to analyze, so we scraped data from [PFR](www.pro-football-reference.com). This can be found and run in the data_scrape.R script. 
 
 ```{r data_import, message=FALSE}
+pass <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/pass.csv?token=AKLAJHSNHCWTZWKSMMV5P5S7ANRQC")
 
+rush <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/rush.csv?token=AKLAJHRNGS5HOWQH6B4JYHS7ANTNG")
+
+receive <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/receive.csv?token=AKLAJHW6IWBGOASR7OTOYXS7ANR26")
+
+fantasy <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/fantasy.csv?token=AKLAJHQBOBBY5QLA5SYXN627ANSQU")
 ```
 
+# Data Clean
+
+Let's look at our data and decide if there's anything specific we need to do to clean it. Since PFR has some formatting issues, we'll go in and clean those up. The first thing that PFR does is the duplicate the column headers every few rows, as it makes reading on the web much easier. We'll filter those out. 
+```{r remove_headers}
+remove_headers <- function(df) {
+  df %>% 
+    filter(GS != "GS")
+}
+
+data <- list(fantasy, pass, receive, rush) %>% 
+  map(remove_headers)
+
+fantasy <- data[[1]]
+pass <- data[[2]]
+receive <- data[[3]]
+rush <- data[[4]]
+
+rm(data)
+```
+
+Next, we see that some players have asteriks or plusses next to their names, to indicate All-Pro/All-Star status. We want to clean these out, such that it won't affect the naming conventions. 
+```{r clean_names}
+clean_names <- function(df) {
+  
+  
+}
+
+pass %>% 
+  gsub(Player, "^.*?\\.")
+
+
+```
 
 
 
