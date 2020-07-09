@@ -119,6 +119,9 @@ pass %>%
 ```{r}
 # quick check to compare ML times on laptop vs. PC
 fantasyWR <- fantasy %>% 
+  mutate(Age = as.numeric(Age), 
+         GS = as.numeric(GS),
+         Tgt = as.numeric(Tgt)) %>% 
   filter(FantPos == "WR")
 
 set.seed(51)
@@ -126,13 +129,12 @@ train <- sample(nrow(fantasyWR), 0.7 * nrow(fantasyWR), replace = FALSE)
 TrainSet <- fantasyWR[train, ]
 ValidSet <- fantasyWR[-train, ]
 
-summary(TrainSet)
-summary(ValidSet)
+
 ```
 
 
 ```{r}
-model1 <- randomForest(PPR ~ Age * GS * Tgt * 'Y/R', data = fantasyWR, importance = TRUE, do.trace = TRUE)
+model1 <- randomForest(PPR ~ Age * GS * Tgt, data = TrainSet, importance = TRUE, do.trace = TRUE, na.action = na.omit)
 ```
 
 
