@@ -132,7 +132,7 @@ summary(ValidSet)
 
 
 ```{r}
-model1 <- randomForest(PPR ~ Age * GS * Tgt * 'Y/R', fantasyWR, importance = TRUE, do.trace = TRUE)
+model1 <- randomForest(PPR ~ Age * GS * Tgt * 'Y/R', data = fantasyWR, importance = TRUE, do.trace = TRUE)
 ```
 
 
