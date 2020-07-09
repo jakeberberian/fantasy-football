@@ -119,7 +119,8 @@ pass %>%
 ```{r}
 # quick check to compare ML times on laptop vs. PC
 fantasyWR <- fantasy %>% 
-  mutate(Age = as.numeric(Age), 
+  mutate(PPR = as.numeric(PPR),
+         Age = as.numeric(Age), 
          GS = as.numeric(GS),
          Tgt = as.numeric(Tgt)) %>% 
   filter(FantPos == "WR")
