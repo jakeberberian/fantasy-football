@@ -73,13 +73,13 @@ And now, defensive.
 We need some data to analyze, so we scraped data from [PFR](www.pro-football-reference.com). This can be found and run in the data_scrape.R script. 
 
 ```{r data_import, message=FALSE}
-pass <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/pass.csv?token=AKLAJHSNHCWTZWKSMMV5P5S7ANRQC")
+pass <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/pass.csv")
 
-rush <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/rush.csv?token=AKLAJHRNGS5HOWQH6B4JYHS7ANTNG")
+rush <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/rush.csv")
 
-receive <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/receive.csv?token=AKLAJHW6IWBGOASR7OTOYXS7ANR26")
+receive <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/receive.csv")
 
-fantasy <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/fantasy.csv?token=AKLAJHQBOBBY5QLA5SYXN627ANSQU")
+fantasy <- read_csv("https://raw.githubusercontent.com/jakeberberian/fantasy-football/master/data/fantasy.csv")
 ```
 
 # Data Clean
@@ -114,6 +114,28 @@ pass %>%
 
 
 ```
+
+
+```{r}
+# quick check to compare ML times on laptop vs. PC
+fantasyWR <- fantasy %>% 
+  filter(FantPos == "WR")
+
+set.seed(51)
+train <- sample(nrow(fantasyWR), 0.7 * nrow(fantasyWR), replace = FALSE)
+TrainSet <- fantasyWR[train, ]
+ValidSet <- fantasyWR[-train, ]
+
+summary(TrainSet)
+summary(ValidSet)
+```
+
+
+```{r}
+model1 <- randomForest(PPR ~ Age * GS * Tgt * 'Y/R', fantasyWR, importance = TRUE, do.trace = TRUE)
+```
+
+
 
 
 
